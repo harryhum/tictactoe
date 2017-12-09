@@ -1,11 +1,5 @@
-#To do: 
-    #Separate grid into subclass?
-    #Separate methods into smaller chunks
-    #Make methods private
-
 class Game
     attr_accessor :player
-    attr_reader :grid
 
     def initialize
         name_entry
@@ -19,6 +13,8 @@ class Game
         end
     end
 
+    private 
+
     def name_entry
         puts "Player 1 enter your name:"
         player_one_name = gets.chomp
@@ -30,6 +26,7 @@ class Game
     end
 
     def start
+        @moves = 0
         @grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
         rand_player
         @player_x = @player_one.turn == true ? @player_one : @player_two
@@ -40,24 +37,25 @@ class Game
         make_move
     end
 
-    def display_grid
-        puts "Grid:"
-        puts "    0    1    2"
-        puts "0 #{@grid[0].inspect}"
-        puts "1 #{@grid[1].inspect}"
-        puts "2 #{@grid[2].inspect}"
-    end
-
     def rand_player
         @player_one.turn = rand > 0.5 ? true : false
         @player_two.turn = @player_one.turn == false ? true : false
     end
 
     def make_move
+        @moves += 1
         display_grid
         @current_player = @player_one.turn == true ? @player_one : @player_two
         puts "#{@current_player.name}, make your move"
         get_coordinates
+    end
+
+    def display_grid
+        puts "Grid:"
+        puts "    0    1    2"
+        puts "0 #{@grid[0].inspect}"
+        puts "1 #{@grid[1].inspect}"
+        puts "2 #{@grid[2].inspect}"
     end
 
     def get_coordinates
@@ -103,6 +101,10 @@ class Game
             puts "#{@grid[row][column] == @player_one.sign ? @player_one.name : @player_two.name} wins! Game over, play again? (Enter y/n)"
             play_again = gets.chomp
             play_again == 'y' ? start : exit
+        elsif @moves >= 9
+            puts "It's a tie! Game over, play again? (Enter y/n)"
+            play_again = gets.chomp
+            play_again == 'y' ? start : exit
         end
     end
 
@@ -142,4 +144,4 @@ class Game
     end    
 end
 
-game_one = Game.new
+Game.new
