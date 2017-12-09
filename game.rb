@@ -1,5 +1,4 @@
 #To do: 
-    #Prompt players for names instead of setting
     #Separate grid into subclass?
     #Separate methods into smaller chunks
     #Make methods private
@@ -8,10 +7,8 @@ class Game
     attr_accessor :player
     attr_reader :grid
 
-    def initialize(player_one, player_two)
-        @player_one = Player.new(player_one)
-        @player_two = Player.new(player_two)
-        @grid = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+    def initialize
+        name_entry
     end
 
     class Player
@@ -20,6 +17,16 @@ class Game
         def initialize(name)
             @name = name
         end
+    end
+
+    def name_entry
+        puts "Player 1 enter your name:"
+        player_one_name = gets.chomp
+        puts "Player 2 enter your name:"
+        player_two_name = gets.chomp
+        @player_one = Player.new(player_one_name)
+        @player_two = Player.new(player_two_name)
+        start
     end
 
     def start
@@ -135,8 +142,4 @@ class Game
     end    
 end
 
-#New game with player_one and player_two
-game_one = Game.new('Harry', 'Kaia')
-
-#Start game by seeing who gets which sign and who goes first
-game_one.start
+game_one = Game.new
