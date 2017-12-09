@@ -1,6 +1,4 @@
 class Game
-    attr_accessor :player
-
     def initialize
         name_entry
     end
@@ -83,7 +81,7 @@ class Game
             get_coordinates
         end
         display_grid
-        win?(row, column)
+        game_over?(row, column)
         switch_turns
         make_move
     end
@@ -96,7 +94,7 @@ class Game
         @grid[row][column] == ' ' ? true : false
     end
 
-    def win?(row, column)
+    def game_over?(row, column)
         if three_in_a_row?(row) || three_in_a_column?(column) || three_in_a_diagonal?
             puts "#{@grid[row][column] == @player_one.sign ? @player_one.name : @player_two.name} wins! Game over, play again? (Enter y/n)"
             play_again = gets.chomp
