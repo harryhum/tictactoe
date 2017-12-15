@@ -26,8 +26,8 @@ class Game
 
     def set
         @board = {a1: " ", a2: " ", a3: " ",
-        b1: " ", b2: " ", b3: " ",
-        c1: " ", c2: " ", c3: " "}
+                  b1: " ", b2: " ", b3: " ",
+                  c1: " ", c2: " ", c3: " "}
         @moves = 0
         @win = false
         @tie = false
